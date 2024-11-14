@@ -435,7 +435,7 @@ function stop() {
 
 	// turn on menu for linux
 	if (window.os === OS_LINUX && window.settings[window.setting]?.key != window.key_pressed) {
-		window.stop_menu == false;
+		window.stop_menu = false;
 	}
 }
 
