@@ -103,9 +103,14 @@ chrome.runtime.sendMessage(
 	}
 );
 
-chrome.runtime.onMessage.addListener(function (request) {
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+	const request = message;
+
 	if (request.message === "update") {
 		window.settings = request.settings.actions;
+
+		const msg = "A message from the options.ts was received. This is the response from linkclump.ts to background.js.";
+		sendResponse(msg);
 	}
 });
 
