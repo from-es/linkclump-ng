@@ -375,13 +375,26 @@ function handleRequests(request: Messages, sender: chrome.runtime.MessageSender,
 					window.tabs.forEach(async function (tab) {
 						if (!tab.id) return;
 
-						chrome.tabs.sendMessage(
+						const sendMessageToTab = chrome.tabs.sendMessage(
 							tab.id,
 							{
 								message: "update",
 								settings: await settingsManager.load()
 							} as UpdateMessage
 						);
+						sendMessageToTab
+							.then(
+								(response) => {
+									// debug
+									console.log("Received a response from Tab. response >>", { tab, response });
+								}
+							)
+							.catch(
+								(error) => {
+									// debug　
+									console.log("Received a response from Tab. error >>", { tab, error });
+								}
+							);
 					})
 				})
 			});
